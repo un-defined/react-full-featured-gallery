@@ -1,0 +1,11 @@
+{
+  "name": "react-full-featured-gallery",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/un-defined/react-full-featured-gallery.git",
+  "author": "un-defined <659168590@qq.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "react": "^15.5.4"
+  }
+}
