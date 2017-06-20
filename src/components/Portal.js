@@ -4,19 +4,21 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { render } from 'react-dom';
 import PassContext from './PassContext';
 
+
 export default class Portal extends Component {
-    constructor () {
-        super();
-        this.portalElement = null;
-    }
-    componentDidMount () {
-        const p = document.createElement('div');
+	constructor () {
+		super();
+		this.portalElement = null;
+	}
+	componentDidMount () {
+		const p = document.createElement('div');
 		document.body.appendChild(p);
 		this.portalElement = p;
 		this.componentDidUpdate();
-    }
-    componentDidUpdate (prevProps, prevState) {
-        const duration = 200;
+	}
+	componentDidUpdate () {
+		// Animate fade on mount/unmount
+		const duration = 200;
 		const styles = `
 				.fade-enter { opacity: 0.01; }
 				.fade-enter.fade-enter-active { opacity: 1; transition: opacity ${duration}ms; }
@@ -24,30 +26,30 @@ export default class Portal extends Component {
 				.fade-leave.fade-leave-active { opacity: 0.01; transition: opacity ${duration}ms; }
 		`;
 
-        render(
-            <PassContext context={this.context}>
-                <div>
-                    <style>{styles}</style>
-                    <CSSTransitionGroup
-                        component="div"
-                        transitionName="fade"
-                        transitionEnterTimeout={duration}
-                        transitionLeaveTimeout={duration}
-                        { ...this.props }
-                    />
-                </div>
-            </PassContext>,
-            this.portalElement
-        );
-    }
-    componentWillUnmount () {
-        document.body.removeChild(this.portalElement);
-    }
-    render () {
-        return null;
-    }
+		render(
+			<PassContext context={this.context}>
+				<div>
+					<style>{styles}</style>
+					<CSSTransitionGroup
+						component="div"
+						transitionName="fade"
+						transitionEnterTimeout={duration}
+						transitionLeaveTimeout={duration}
+						{...this.props}
+					/>
+				</div>
+			</PassContext>,
+			this.portalElement
+		);
+	}
+	componentWillUnmount () {
+		document.body.removeChild(this.portalElement);
+	}
+	render () {
+		return null;
+	}
 }
 
 Portal.contextTypes = {
-    theme: PropTypes.object.isRequired
-}
+	theme: PropTypes.object.isRequired,
+};
