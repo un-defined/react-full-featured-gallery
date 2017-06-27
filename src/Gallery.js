@@ -62,20 +62,19 @@ class Gallery extends Component {
 		}
     }
     handleKeyboardInput (event) {
-        switch (event.keyCode) {
-            case 27:    // esc
-                this.props.onClose();
-                break;
-            case 37:    // left
-                console.log( 'Prev' );
-                break;
-            case 39:    // right
-                console.log( 'Next' );
-                break;
-            default:
-                break;
-        }
-    }
+		if (event.keyCode === 37) { // left
+			this.gotoPrev(event);
+			return true;
+		} else if (event.keyCode === 39) { // right
+			this.gotoNext(event);
+			return true;
+		} else if (event.keyCode === 27) { // esc
+			this.props.onClose();
+			return true;
+		}
+		return false;
+
+	}
     renderDialog() {
         const {
             isOpen,
